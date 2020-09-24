@@ -10,7 +10,8 @@
     <section class="current_weather">
         <div class="current_weather_top">
             <h1>Погода здесь</h1>
-            <button class="grey_btn"><span class="grey_btn_text">Обновить геолокацию</span></button>
+            <button class="grey_btn">Обновить геолокацию</button>
+            <button class="grey_btn_pic"></button>
         </div>
         <div class="current_weather_main">
             <div class="current_weather_left">
@@ -20,220 +21,220 @@
                     <div class="big_degrees">8&#xb0; C</div>
                 </div>
             </div>
-            <div class="current_weather_right weather_info">
-                <div class="item">
+            <ul class="current_weather_right weather_info">
+                <li class="item">
                     <div class="item_name">Ветер</div>
                     <div class="item_value">Moderate breeze, 6.0 m/s, North-northwest</div>
-                </div>
-                <div class="item">
+                </li>
+                <li class="item">
                     <div class="item_name">Облачность</div>
                     <div class="item_value">Broken clouds</div>
-                </div>
-                <div class="item">
+                </li>
+                <li class="item">
                     <div class="item_name">Давление</div>
                     <div class="item_value">1013 hpa</div>
-                </div>
-                <div class="item">
+                </li>
+                <li class="item">
                     <div class="item_name">Влажность</div>
                     <div class="item_value">52%</div>
-                </div>
-                <div class="item">
+                </li>
+                <li class="item">
                     <div class="item_name">Координаты</div>
                     <div class="item_value">[56.98, 30.42]</div>
-                </div>
-            </div>
+                </li>
+            </ul>
         </div>
     </section>
     <section class="favorites">
         <div class="favorites_top_block">
-            <span class="bold_title">Избранное</span>
+            <h2 class="bold_title">Избранное</h2>
             <form class="add_new_town">
                 <input class="new_town" name="name" placeholder="Добавить новый город">
                 <button class="add_new_button">+</button>
             </form>
         </div>
-        <div class="city_weather_wrapper">
-            <div class="city_weather">
+        <ul class="city_weather_wrapper">
+            <li class="city_weather">
                 <div class="city_weather_top_block">
-                    <span class="bold_title top_block_city_name">Moscow</span>
+                    <h3 class="bold_title top_block_city_name">Moscow</h3>
                     <div class="degrees">5&#xb0; C</div>
                     <div class="icon_container"><img src="img/cloudy.png" class="mini_weather_icon"></div>
                     <button class="delete_button">+</button>
                 </div>
-                <div class="weather_info">
-                    <div class="item">
+                <ul class="weather_info">
+                    <li class="item">
                         <div class="item_name">Ветер</div>
                         <div class="item_value">Moderate breeze, 6.0 m/s, North-northwest</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Облачность</div>
                         <div class="item_value">Broken clouds</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Давление</div>
                         <div class="item_value">1013 hpa</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Влажность</div>
                         <div class="item_value">52%</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Координаты</div>
                         <div class="item_value">[56.98, 30.42]</div>
-                    </div>
-                </div>
-            </div>
-            <div class="city_weather">
+                    </li>
+                </ul>
+            </li>
+            <li class="city_weather">
                 <div class="city_weather_top_block">
-                    <span class="bold_title top_block_city_name">Helsinki</span>
+                    <h3 class="bold_title top_block_city_name">Helsinki</h3>
                     <div class="degrees">3&#xb0; C</div>
                     <div class="icon_container"><img src="img/cloudy.png" class="mini_weather_icon"></div>
                     <button class="delete_button">+</button>
                 </div>
-                <div class="weather_info">
-                    <div class="item">
+                <ul class="weather_info">
+                    <li class="item">
                         <div class="item_name">Ветер</div>
                         <div class="item_value">Moderate breeze, 6.0 m/s, North-northwest</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Облачность</div>
                         <div class="item_value">Broken clouds</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Давление</div>
                         <div class="item_value">1013 hpa</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Влажность</div>
                         <div class="item_value">52%</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Координаты</div>
                         <div class="item_value">[56.98, 30.42]</div>
-                    </div>
-                </div>
-            </div>
-            <div class="city_weather">
+                    </li>
+                </ul>
+            </li>
+            <li class="city_weather">
                 <div class="city_weather_top_block">
-                    <span class="bold_title top_block_city_name">Moscow</span>
+                    <h3 class="bold_title top_block_city_name">Moscow</h3>
                     <div class="degrees">5&#xb0; C</div>
                     <div class="icon_container"><img src="img/cloudy.png" class="mini_weather_icon"></div>
                     <button class="delete_button">+</button>
                 </div>
-                <div class="weather_info">
-                    <div class="item">
+                <ul class="weather_info">
+                    <li class="item">
                         <div class="item_name">Ветер</div>
                         <div class="item_value">Moderate breeze, 6.0 m/s, North-northwest</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Облачность</div>
                         <div class="item_value">Broken clouds</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Давление</div>
                         <div class="item_value">1013 hpa</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Влажность</div>
                         <div class="item_value">52%</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Координаты</div>
                         <div class="item_value">[56.98, 30.42]</div>
-                    </div>
-                </div>
-            </div>
-            <div class="city_weather">
+                    </li>
+                </ul>
+            </li>
+            <li class="city_weather">
                 <div class="city_weather_top_block">
-                    <span class="bold_title top_block_city_name">Helsinki</span>
+                    <h3 class="bold_title top_block_city_name">Helsinki</h3>
                     <div class="degrees">3&#xb0; C</div>
                     <div class="icon_container"><img src="img/cloudy.png" class="mini_weather_icon"></div>
                     <button class="delete_button">+</button>
                 </div>
-                <div class="weather_info">
-                    <div class="item">
+                <ul class="weather_info">
+                    <li class="item">
                         <div class="item_name">Ветер</div>
                         <div class="item_value">Moderate breeze, 6.0 m/s, North-northwest</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Облачность</div>
                         <div class="item_value">Broken clouds</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Давление</div>
                         <div class="item_value">1013 hpa</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Влажность</div>
                         <div class="item_value">52%</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Координаты</div>
                         <div class="item_value">[56.98, 30.42]</div>
-                    </div>
-                </div>
-            </div>
-            <div class="city_weather">
+                    </li>
+                </ul>
+            </li>
+            <li class="city_weather">
                 <div class="city_weather_top_block">
-                    <span class="bold_title top_block_city_name">Moscow</span>
+                    <h3 class="bold_title top_block_city_name">Moscow</h3>
                     <div class="degrees">5&#xb0; C</div>
                     <div class="icon_container"><img src="img/cloudy.png" class="mini_weather_icon"></div>
                     <button class="delete_button">+</button>
                 </div>
-                <div class="weather_info">
-                    <div class="item">
+                <ul class="weather_info">
+                    <li class="item">
                         <div class="item_name">Ветер</div>
                         <div class="item_value">Moderate breeze, 6.0 m/s, North-northwest</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Облачность</div>
                         <div class="item_value">Broken clouds</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Давление</div>
                         <div class="item_value">1013 hpa</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Влажность</div>
                         <div class="item_value">52%</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Координаты</div>
                         <div class="item_value">[56.98, 30.42]</div>
-                    </div>
-                </div>
-            </div>
-            <div class="city_weather">
+                    </li>
+                </ul>
+            </li>
+            <li class="city_weather">
                 <div class="city_weather_top_block">
-                    <span class="bold_title top_block_city_name">Helsinki</span>
+                    <h3 class="bold_title top_block_city_name">Helsinki</h3>
                     <div class="degrees">3&#xb0; C</div>
                     <div class="icon_container"><img src="img/cloudy.png" class="mini_weather_icon"></div>
                     <button class="delete_button">+</button>
                 </div>
-                <div class="weather_info">
-                    <div class="item">
+                <ul class="weather_info">
+                    <li class="item">
                         <div class="item_name">Ветер</div>
                         <div class="item_value">Moderate breeze, 6.0 m/s, North-northwest</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Облачность</div>
                         <div class="item_value">Broken clouds</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Давление</div>
                         <div class="item_value">1013 hpa</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Влажность</div>
                         <div class="item_value">52%</div>
-                    </div>
-                    <div class="item">
+                    </li>
+                    <li class="item">
                         <div class="item_name">Координаты</div>
                         <div class="item_value">[56.98, 30.42]</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </section>
 </main>
 </body>
