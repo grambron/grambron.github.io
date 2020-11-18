@@ -31,10 +31,10 @@
     <section class="favorites">
         <div class="favorites_top_block">
             <h2 class="nobold_title">Избранное</h2>
-            <div class="add_new_town">
-                <input class="new_town" id="add_new_town_input" name="name" placeholder="Добавить новый город">
+            <form class="add_new_town">
+                <label for="add_new_town_input"></label><input class="new_town" id="add_new_town_input" name="name" placeholder="Добавить новый город">
                 <button id="add_new_town_button" class="add_new_button">+</button>
-            </div>
+            </form>
         </div>
         <div class="city_weather_wrapper" id="favorite_towns"></div>
     </section>
@@ -54,7 +54,6 @@
             <div class="icon_container"><img src="" class="mini_weather_icon"></div>
             <div class="delete_button">+</div>
         </div>
-        <div class="error_info"></div>
         <ul class="weather_info">
         </ul>
     </div>

@@ -130,68 +130,101 @@ function cloudsType(percent) {
 }
 
 window.onload = async function () {
-    const name = "agree=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    let cookAgree = "";
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?cnt=1&units=metric&lat=${position.coords.latitude}&lon=${position.coords.longitude}&APPID=${apiKey}`);
+        if (response.ok) {
+            let json = await response.json();
+            await fillCurrent(json);
+        } else {
+            alert("Ошибка HTTP: " + response.status);
         }
-        if (c.indexOf(name) === 0) {
-            cookAgree = c.substring(name.length, c.length);
-        }
-    }
-    let agree = cookAgree ? true : confirm('Согласны ли вы предоставить данные о вашей геолокации?');
-    if (agree) {
-        setCookie('agree', true);
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?cnt=1&units=metric&lat=${position.coords.latitude}&lon=${position.coords.longitude}&APPID=${apiKey}`);
-            if (response.ok) {
-                let json = await response.json();
-                await fillCurrent(json);
-            } else {
-                alert("Ошибка HTTP: " + response.status);
-            }
-        });
-    } else {
+    }, async () => {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?cnt=1&units=metric&q=Saint Petersburg,ru&APPID=${apiKey}`);
         if (response.ok) {
             let json = await response.json();
             await fillCurrent(json);
         }
-    }
+    });
 
     await fillFavorites();
 
-    let newTownButton = document.getElementById('add_new_town_button');
-    let newTownInput = document.getElementById('add_new_town_input');
-    newTownButton.onclick = (e) => {
+    let addNewTown = document.querySelector('.add_new_town');
+    addNewTown.addEventListener('submit', (e) => {
         e.preventDefault();
+        let newTownInput = e.target.getElementsByTagName("input")[0];
         let flag = false;
         let towns = JSON.parse(localStorage.getItem('towns'));
         if (towns == null) {
-            localStorage.setItem('towns', JSON.stringify([newTownInput.value]))
-        }
-        for (let i = 0; i < towns.length; i++) {
-            if (towns[i].toLowerCase() === newTownInput.value.toLowerCase()) {
-                flag = true;
-                break;
+            localStorage.setItem('towns', JSON.stringify([]))
+        } else {
+            for (let i = 0; i < towns.length; i++) {
+                if (towns[i].toLowerCase() === newTownInput.value.toLowerCase()) {
+                    alert("Данный город уже есть в избранных!");
+                    flag = true;
+                    break;
+                }
             }
         }
         if (!flag) {
-            towns.push(newTownInput.value);
+            addNewCity(newTownInput.value);
             localStorage.setItem('towns', JSON.stringify(towns));
         }
-        location.reload();
-    };
+    });
     let reloadButton = document.getElementById('reload_geo');
     reloadButton.onclick = function () {
-        setCookie('agree', true, -1);
         location.reload();
     }
 };
+
+async function addNewCity(city) {
+    let cities = JSON.parse(localStorage.getItem('towns'));
+
+    let favorites = document.querySelector('#favorite_towns');
+
+
+    let townTemplate = document.querySelector('#city_weather_template');
+    let emptyTown = townTemplate.cloneNode(true);
+    let data, cityName, degrees, img, ul;
+    favorites.appendChild(document.importNode(emptyTown.content, true));
+
+    try {
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?cnt=1&units=metric&q=${city}&APPID=${apiKey}`);
+
+
+        if (response.ok) {
+            data = await response.json();
+            console.log(data);
+            localStorage.setItem('towns', JSON.stringify([city, ...cities]));
+            // favorites.appendChild(document.importNode(emptyTown.content, true));
+            cityName = townTemplate.content.querySelector('.top_block_city_name');
+            degrees = townTemplate.content.querySelector('.degrees');
+            img = townTemplate.content.querySelector('img');
+            ul = townTemplate.content.querySelector('ul');
+            ul.innerHTML = '';
+
+            fillCityContent(ul, data);
+
+            cityName.innerText = city;
+            img.src = 'http://openweathermap.org/img/wn/' + data.list[0].weather[0].icon + '@2x.png';
+            degrees.innerText = data.list[0].main.temp + '° C';
+            let waiting = await get_waiting(townTemplate.content);
+
+            favorites.removeChild(favorites.lastElementChild);
+            favorites.appendChild(document.importNode(townTemplate.content, true));
+            waiting.classList.add('waiting_visible');
+            waiting.classList.remove('waiting_hidden');
+        } else {
+            favorites.removeChild(favorites.lastElementChild);
+            alert("По данному городу не удалось получить данные");
+        }
+        let deleteButtons = document.getElementsByClassName('delete_button');
+        deletion(deleteButtons);
+    } catch (e) {
+        favorites.removeChild(favorites.lastElementChild);
+        alert("Пропала сеть(((")
+    }
+}
 
 async function fillCurrent(data) {
     let leftBlock = document.querySelector('#top_weather_left_block');
@@ -238,17 +271,31 @@ function fillCityContent(block, data) {
     clones.forEach((item) => block.appendChild(item));
 }
 
+
 function deletion(deleteButtons) {
     for (let j = 0; j < deleteButtons.length; j++) {
         deleteButtons[j].onclick = (e) => {
-            let cityName = deleteButtons[j].previousElementSibling.previousElementSibling.previousElementSibling;
+            console.log(e)
+            target = e.target
+            console.log(target.previousElementSibling)
+            console.log(target.previousElementSibling.previousElementSibling)
+            let cityName = target.previousElementSibling.previousElementSibling.previousElementSibling;
             e.preventDefault();
             let towns = JSON.parse(localStorage.getItem('towns'));
             let position = towns.indexOf(cityName.innerText);
 
-            if (~position) towns.splice(position, 1);
-            localStorage.setItem('towns', JSON.stringify(towns));
-            location.reload();
+            if (position >= 0) {
+                towns.splice(position, 1);
+                localStorage.setItem('towns', JSON.stringify(towns));
+                let favorites = document.querySelector('#favorite_towns');
+                for (const cityElement of favorites.children) {
+                    const thisCityName = cityElement.querySelector('.top_block_city_name').innerText;
+                    if (!(towns.includes(thisCityName))) {
+                        favorites.removeChild(cityElement);
+                        break;
+                    }
+                }
+            }
         };
     }
 }
@@ -285,36 +332,12 @@ async function fillFavorites() {
             waiting.classList.add('waiting_visible');
             waiting.classList.remove('waiting_hidden');
         } else {
-            favorites.appendChild(document.importNode(emptyTown.content, true));
-            cityName = townTemplate.content.querySelector('.top_block_city_name');
-            cityName.innerText = city;
-            degrees = townTemplate.content.querySelector('.degrees');
-            img = townTemplate.content.querySelector('img');
-            ul = townTemplate.content.querySelector('ul');
-            degrees.innerHTML = '';
-            ul.innerHTML = '';
-            img.src = '';
-
-            let errorMessage = townTemplate.content.querySelector('.error_info');
-            errorMessage.innerHTML = 'По данному городу не удалось загрузить данные';
-            let waiting = await get_waiting(townTemplate.content);
-            favorites.removeChild(favorites.lastElementChild);
-            favorites.appendChild(document.importNode(townTemplate.content, true));
-            errorMessage.innerHTML = '';
-            waiting.classList.add('waiting_visible');
-            waiting.classList.remove('waiting_hidden');
+            alert("По данному городу не удалось получить данные");
         }
     }
 
     let deleteButtons = document.getElementsByClassName('delete_button');
     deletion(deleteButtons);
-}
-
-function setCookie(cname, cvalue, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 
